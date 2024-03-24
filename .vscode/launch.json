@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "c:/Users/heliv/OneDrive/שולחן העבודה/חלי תואר מדמח/שנה ב/סמסטר א/מעבדה בתכנות מערכות/פרויקט/CustomAssembler",
+      "program": "c:/Users/heliv/OneDrive/שולחן העבודה/חלי תואר מדמח/שנה ב/סמסטר א/מעבדה בתכנות מערכות/פרויקט/CustomAssembler/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}
