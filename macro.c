@@ -82,7 +82,10 @@ int GetMacroDict(char* macroSection, struct macro* macroDictionary)
     char currentPartForMcrCheck[5] = "";
     char currentPartForEndMcrCheck[7] = "";
     int i = 0;
+    int j = 0;
     int k = 0;
+    char *macroName;
+    char *macroValue;
 
     while (macroSection[i] != '\0') {
         strncpy(currentPartForMcrCheck, &macroSection[i], 4);
@@ -90,7 +93,7 @@ int GetMacroDict(char* macroSection, struct macro* macroDictionary)
         {
             i = i + 4;
 
-            char *macroName = NULL;
+            macroName = NULL;
             macroName = (char *)malloc(MAX_MACRO_NAME * sizeof(char *));
             if (macroName==NULL)
             {
@@ -98,7 +101,7 @@ int GetMacroDict(char* macroSection, struct macro* macroDictionary)
                 return -1;
             }
 
-            char *macroValue = NULL;
+            macroValue = NULL;
             macroValue = (char *)malloc(MAX_MACRO_VALUE * sizeof(char *));
             if (macroValue==NULL)
             {
@@ -106,7 +109,7 @@ int GetMacroDict(char* macroSection, struct macro* macroDictionary)
                 return -1;
             }
 
-            int j = 0;
+            j = 0;
             while (macroSection[i] != '\0' && macroSection[i] != '\n') {
                 macroName[j] = macroSection[i];
                 j++;
@@ -116,8 +119,9 @@ int GetMacroDict(char* macroSection, struct macro* macroDictionary)
             j++;
 
             if (macroSection[i] == '\0' ){
+                free(macroName);
                 return -1;
-                //invalid macro, macro has no value
+                /* invalid macro, macro has no value */
             }
 
             i++;
@@ -136,8 +140,11 @@ int GetMacroDict(char* macroSection, struct macro* macroDictionary)
             strcpy(currentPartForEndMcrCheck, "");
 
             if (macroSection[i] == '\0' ){
+                free(macroName);
+                free(macroValue);
+
                 return -1;
-                //invalid macro, macro has no endmcr
+                /* invalid macro, macro has no endmcr */
             }
 
             i = i + 6;
@@ -163,6 +170,9 @@ int GetMacroDict(char* macroSection, struct macro* macroDictionary)
 int MacroHandler(char* macroSection, char* codeSection, char** updatedCode)
 {
     struct macro* macroDictionary = NULL;
+    int i = 0;
+    int macroDictionaryLen = 0;
+    int updatedCodeLen = 0;
 
     macroDictionary = (struct macro*)malloc(MAX_LEN_MACRO_DICTIONARY * sizeof(struct macro));
     if (macroDictionary == NULL)
@@ -171,7 +181,6 @@ int MacroHandler(char* macroSection, char* codeSection, char** updatedCode)
         return -1;
     }
 
-    int i=0;
     for (i=0; i<MAX_LEN_MACRO_DICTIONARY; i++)
     {
         macroDictionary[i].macroName = (char*)malloc(MAX_MACRO_NAME * sizeof(char));
@@ -189,8 +198,8 @@ int MacroHandler(char* macroSection, char* codeSection, char** updatedCode)
         }
     }
 
-    int macroDictionaryLen = GetMacroDict(macroSection, macroDictionary);
-    int updatedCodeLen = MacroReplace(macroDictionary, codeSection, macroDictionaryLen, updatedCode);
+    macroDictionaryLen = GetMacroDict(macroSection, macroDictionary);
+    updatedCodeLen = MacroReplace(macroDictionary, codeSection, macroDictionaryLen, updatedCode);
 
     return updatedCodeLen;
 }

@@ -18,4 +18,4 @@ int MacroReplace(struct macro* macroDictionary, const char* codeSection, int mac
 int GetMacroDict(char* macroSection, struct macro* macroDictionary);
 int MacroHandler(char* macroSection, char* codeSection, char** updatedCode);
 
-#endif //MAMAN14_MACRO_H
+#endif
