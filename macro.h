@@ -15,7 +15,7 @@ struct macro {
 
 int GetCurrLineMacroIndex(char* currentLine, struct macro* macroDictionary, int macroDictionaryLen);
 int MacroReplace(struct macro* macroDictionary, const char* codeSection, int macroDictionaryLen, char** updatedCode);
-int GetMacroDict(char* macroSection, struct macro* macroDictionary);
-int MacroHandler(char* macroSection, char* codeSection, char** updatedCode);
+int GetMacroDict(char* code, char** codeWithOutMacro, struct macro* macroDictionary);
+int MacroHandler(char* code);
 
 #endif
